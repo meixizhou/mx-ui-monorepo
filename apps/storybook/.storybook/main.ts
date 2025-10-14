@@ -18,6 +18,9 @@ const config: StorybookConfig = {
   },
   viteFinal: async (config) =>
     mergeConfig(config, {
+      optimizeDeps: {
+        exclude: ['@mx/ui']
+      },
       resolve: {
         alias: {
           '@mx/ui': path.resolve(__dirname, '../../../packages/ui/src'),
