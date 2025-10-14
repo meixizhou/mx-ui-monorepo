@@ -6,6 +6,9 @@
     "dev": "storybook dev -p 6006 --disable-telemetry",
     "build": "storybook build --disable-telemetry",
     "storybook": "storybook dev -p 6006 --disable-telemetry",
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "storybook": "storybook dev -p 6006",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
