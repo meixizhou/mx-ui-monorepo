@@ -1,3 +1,5 @@
+import path from 'node:path';
+import { mergeConfig } from 'vite';
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
@@ -13,6 +15,19 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: 'tag'
+  },
+  viteFinal: async (config) =>
+    mergeConfig(config, {
+      resolve: {
+        alias: {
+          '@mx/ui': path.resolve(__dirname, '../../../packages/ui/src'),
+          '@mx/ui/styles.css': path.resolve(
+            __dirname,
+            '../../../packages/ui/src/styles.css'
+          )
+        }
+      }
+    })
   }
 };
 
