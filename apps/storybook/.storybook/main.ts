@@ -25,7 +25,7 @@ const config: StorybookConfig = {
 
     return mergeConfig(config, {
       optimizeDeps: {
-        exclude: ['@mx/ui']
+        exclude: ['@mx/ui', '@storybook/react']
       },
       resolve: {
         conditions,
@@ -33,9 +33,14 @@ const config: StorybookConfig = {
           '@mx/ui': path.resolve(__dirname, '../../../packages/ui/src'),
           '@mx/ui/styles.css': path.resolve(
             __dirname,
-            '../../../packages/ui/src/styles.css'
+            '../../../packages/ui/dist/styles.css'
           )
         }
+      },
+      server: {
+        host: '0.0.0.0',
+        strictPort: true,
+        allowedHosts: ['127.0.0.1']
       }
     });
   }

@@ -1,5 +1,5 @@
 import { forwardRef, type ComponentPropsWithoutRef } from 'react';
-import { Button as RadixButton } from '@radix-ui/themes';
+import { Button as RadixButton, type ButtonProps as RadixButtonProps } from '@radix-ui/themes';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { clsx } from 'clsx';
 
@@ -8,7 +8,7 @@ const buttonStyles = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-accent text-accentFg hover:bg-accent/90',
+        primary: '',
         outline: 'border border-border bg-surface hover:bg-surfaceMuted text-accent'
       },
       size: {
@@ -24,17 +24,52 @@ const buttonStyles = cva(
   }
 );
 
+type VisualVariant = 'primary' | 'outline';
+type VisualSize = NonNullable<VariantProps<typeof buttonStyles>['size']>;
+
+const variantToRadix: Record<VisualVariant, Pick<RadixButtonProps, 'variant' | 'highContrast'>> = {
+  primary: {
+    variant: 'solid',
+    highContrast: true
+  },
+  outline: {
+    variant: 'surface',
+    highContrast: true
+  }
+};
+
+const mapSizeToRadix = (size: VisualSize): RadixButtonProps['size'] => {
+  switch (size) {
+    case 'sm':
+      return '1';
+    case 'lg':
+      return '3';
+    default:
+      return '2';
+  }
+};
+
 export type ButtonProps = ComponentPropsWithoutRef<typeof RadixButton> &
   VariantProps<typeof buttonStyles> & {
     className?: string;
   };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, size, className, ...props }, ref) => {
+  ({ variant = 'primary', size = 'md', className, ...props }, ref) => {
+    const visualVariant = (variant ?? 'primary') as VisualVariant;
+    const visualSize = (size ?? 'md') as VisualSize;
+    const { variant: radixVariant, highContrast } = variantToRadix[visualVariant] ??
+      variantToRadix.primary;
+    const radixSize = mapSizeToRadix(visualSize);
+
     return (
       <RadixButton
         ref={ref}
-        className={clsx(buttonStyles({ variant, size }), className)}
+        variant={radixVariant}
+        highContrast={highContrast}
+        color="indigo"
+        size={radixSize}
+        className={clsx(buttonStyles({ variant: visualVariant, size: visualSize }), className)}
         {...props}
       />
     );
