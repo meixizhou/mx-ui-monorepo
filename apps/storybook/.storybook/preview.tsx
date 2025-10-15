@@ -1,10 +1,9 @@
-import type { Preview } from '@storybook/react';
 import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import '@mx/ui/styles.css';
 import '../src/index.css';
 
-const preview: Preview = {
+const preview = {
   parameters: {
     controls: {
       matchers: {

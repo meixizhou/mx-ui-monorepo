@@ -1,7 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { ButtonShowcase } from '../components/ButtonShowcase';
+import { ButtonShowcase, type ButtonShowcaseProps } from '../components/ButtonShowcase';
 
-const meta: Meta<typeof ButtonShowcase> = {
+type StoryArgs = {
+  label?: string;
+  variant?: 'primary' | 'outline';
+  size?: ButtonShowcaseProps['size'];
+};
+
+const meta = {
   title: 'Primitives/Button',
   component: ButtonShowcase,
   parameters: {
@@ -12,11 +17,18 @@ const meta: Meta<typeof ButtonShowcase> = {
     variant: 'primary',
     size: 'md'
   }
+} satisfies {
+  title: string;
+  component: typeof ButtonShowcase;
+  parameters?: Record<string, unknown>;
+  args?: StoryArgs;
 };
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = {
+  args?: StoryArgs;
+};
 
 export const Primary: Story = {};
 
