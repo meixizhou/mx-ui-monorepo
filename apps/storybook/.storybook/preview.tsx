@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite'
 import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import '@mx/ui/styles.css';
