@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "storybook dev -p 6006 --disable-telemetry",
+    "dev": "storybook dev -p 6006 --disable-telemetry --no-open",
     "build": "storybook build --disable-telemetry",
-    "storybook": "storybook dev -p 6006 --disable-telemetry",
+    "storybook": "storybook dev -p 6006 --disable-telemetry --no-open",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

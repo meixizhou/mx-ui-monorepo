@@ -17,9 +17,11 @@ const config: StorybookConfig = {
     autodocs: 'tag'
   },
   viteFinal: async (config) => {
-    const conditions = Array.from(
-      new Set([...(config.resolve?.conditions ?? []), 'storybook'])
-    );
+    const existing = config.resolve?.conditions ?? [];
+    const conditions = [
+      'storybook',
+      ...existing.filter((condition) => condition !== 'storybook')
+    ];
 
     return mergeConfig(config, {
       optimizeDeps: {
